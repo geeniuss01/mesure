@@ -3,12 +3,7 @@
  */
 package me.samen.mesure.sample;
 
-import android.util.Log;
-
-import java.util.List;
-
 import rx.Observable;
-import rx.functions.Func1;
 
 /**
  * @author satosh.dhanyamraju
@@ -23,17 +18,8 @@ public class SamplePresenter {
 
   Observable<String> getTags() {
     return api.getTags()
-        .map(apiResponse -> {
-          Log.i(TAG, "getTags: remaining "+apiResponse.quotaRemaining);
-          return apiResponse.items;
-        })
-        .flatMap(new
-                     Func1<List<APIResponse.Items>, Observable<APIResponse.Items>>() {
-                       @Override
-                       public Observable<APIResponse.Items> call(List<APIResponse.Items> itemses) {
-                         return Observable.from(itemses);
-                       }
-                     })
+        .map(apiResponse -> apiResponse.items)
+        .flatMap(Observable::from)
         .reduce((items, items2) ->  new APIResponse.Items(items.name + "\n" + items2.name))
         .map(items -> items.name);
   }

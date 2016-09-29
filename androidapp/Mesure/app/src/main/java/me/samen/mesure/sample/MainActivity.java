@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity {
     subscribe = samplePresenter.getTags()
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(l -> textView1.setText(l),
+        .subscribe(textView1::setText,
             e -> Log.e(LOG_TAG, e.toString(), e));
   }
 
