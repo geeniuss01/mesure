@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import javax.inject.Inject;
 
@@ -19,6 +20,7 @@ import me.samen.mesure.sample.di.StackModule;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 public class MainActivity extends AppCompatActivity {
   private static final String LOG_TAG = "MainActivity";
@@ -29,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
   TextView textView1;
   @Inject
   SamplePresenter samplePresenter;
+  private CompositeSubscription compositeSubscription = new CompositeSubscription();
   private Subscription subscribe;
 
   @Override
@@ -43,20 +46,24 @@ public class MainActivity extends AppCompatActivity {
 
   @OnClick(R.id.text1)
   public void startLoading() {
+    if (subscribe != null && !subscribe.isUnsubscribed()) {
+      //no duplicate calls
+      Toast.makeText(this, "wait", Toast.LENGTH_SHORT).show();
+      return;
+    }
     textView1.setText(R.string.loading);
     subscribe = samplePresenter.getTags()
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(textView1::setText,
             e -> Log.e(LOG_TAG, e.toString(), e));
+    compositeSubscription.add(subscribe);
   }
 
 
   @Override
   protected void onDestroy() {
-    if (subscribe != null && !subscribe.isUnsubscribed()) {
-      subscribe.unsubscribe();
-    }
+    compositeSubscription.unsubscribe();
     super.onDestroy();
   }
 }
