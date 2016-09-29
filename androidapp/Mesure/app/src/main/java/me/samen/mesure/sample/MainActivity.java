@@ -6,8 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 
-import com.annimon.stream.Stream;
-
 import javax.inject.Inject;
 
 import butterknife.BindView;
@@ -24,6 +22,7 @@ import rx.schedulers.Schedulers;
 
 public class MainActivity extends AppCompatActivity {
   private static final String LOG_TAG = "MainActivity";
+  private static final String TAG = "MainActivity";
   @BindView(R.id.tagsRV)
   RecyclerView tagsRecyclerview;
   @BindView(R.id.text1)
@@ -31,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
   @Inject
   SamplePresenter samplePresenter;
   private Subscription subscribe;
+
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -44,23 +44,19 @@ public class MainActivity extends AppCompatActivity {
   @OnClick(R.id.text1)
   public void startLoading() {
     textView1.setText(R.string.loading);
-    if (subscribe != null) samplePresenter.getTags();
     subscribe = samplePresenter.getTags()
-        .map(l ->
-            Stream.of(l).reduce(
-                (value1, value2) ->
-                    new APIResponse.Items(value1.name + "\n" + value2.name)
-            )
-        )
         .subscribeOn(Schedulers.newThread())
         .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(l -> textView1.setText(l.get().name),
+        .subscribe(l -> textView1.setText(l),
             e -> Log.e(LOG_TAG, e.toString(), e));
   }
 
+
   @Override
   protected void onDestroy() {
-    subscribe.unsubscribe();
+    if (subscribe != null && !subscribe.isUnsubscribed()) {
+      subscribe.unsubscribe();
+    }
     super.onDestroy();
   }
 }
