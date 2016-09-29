@@ -1,13 +1,11 @@
 package me.samen.mesure.headlines;
 
 import android.databinding.DataBindingUtil;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import me.samen.mesure.databinding.ListItemErrorBinding;
 
-class ProgressViewHolder extends RecyclerView.ViewHolder implements
-    HeadlinesAdapter.UpdatableViewHolder {
+class ProgressViewHolder extends VisitableViewHolder<ProgressData> {
   private ListItemErrorBinding errorBinding;
 
   ProgressViewHolder(View itemView) {
@@ -16,7 +14,7 @@ class ProgressViewHolder extends RecyclerView.ViewHolder implements
   }
 
   @Override
-  public void update(HeadlinesResponse.Story story) {
-    errorBinding.setError(story.title);
+  public void update(ProgressData progressData) {
+    errorBinding.setError(progressData.title);
   }
 }

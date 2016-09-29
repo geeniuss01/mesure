@@ -9,6 +9,7 @@ import me.samen.mesure.di.PerActivity;
 import me.samen.mesure.headlines.HeadlinesAdapter;
 import me.samen.mesure.headlines.HeadlinesApi;
 import me.samen.mesure.headlines.HeadlinesPresenter;
+import me.samen.mesure.headlines.TypeFactoryImpl;
 import retrofit2.Retrofit;
 
 /**
@@ -26,7 +27,7 @@ class HeadlinesModule {
   @Provides
   @PerActivity
   HeadlinesAdapter adapter(HeadlinesPresenter presenter) {
-    return new HeadlinesAdapter(presenter);
+    return new HeadlinesAdapter(presenter, new TypeFactoryImpl());
   }
 
   @Provides

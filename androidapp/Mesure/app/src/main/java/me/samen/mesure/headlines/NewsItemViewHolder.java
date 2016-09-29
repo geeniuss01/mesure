@@ -1,7 +1,6 @@
 package me.samen.mesure.headlines;
 
 import android.databinding.DataBindingUtil;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.squareup.picasso.Picasso;
@@ -9,8 +8,7 @@ import com.squareup.picasso.Picasso;
 import me.samen.mesure.R;
 import me.samen.mesure.databinding.ListItemNewsBinding;
 
-class NewsItemViewHolder extends RecyclerView.ViewHolder implements
-    HeadlinesAdapter.UpdatableViewHolder {
+class NewsItemViewHolder extends VisitableViewHolder<HeadlinesResponse.Story>{
     private ListItemNewsBinding binding;
 
     NewsItemViewHolder(View itemView) {

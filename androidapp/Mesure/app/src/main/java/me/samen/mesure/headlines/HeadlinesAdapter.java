@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import me.samen.mesure.R;
 import rx.Subscription;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.schedulers.Schedulers;
@@ -20,39 +19,37 @@ import rx.schedulers.Schedulers;
 /**
  * @author satosh.dhanyamraju
  */
-public class HeadlinesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class HeadlinesAdapter extends RecyclerView.Adapter<VisitableViewHolder>{
   private static final String TAG = "HeadlinesAdapter";
   private HeadlinesPresenter presenter;
-  private List<HeadlinesResponse.Story> stories;
+  private List<Visitable> stories;
+  private ProgressData progressData;
   private Subscription subscription;
+  private TypeFactory typeFactory;
 
-
-  public HeadlinesAdapter(HeadlinesPresenter presenter) {
+  public HeadlinesAdapter(HeadlinesPresenter presenter, TypeFactory typeFactory) {
     this.presenter = presenter;
+    this.typeFactory = typeFactory;
     stories = new ArrayList<>();
-    stories.add(new HeadlinesResponse.Story()); // for footer
+    progressData = new ProgressData(null);
+    stories.add(progressData); // for footer
   }
 
   @Override
   public int getItemViewType(int position) {
-    return position == stories.size() - 1 ? 1 : 0;
+    return stories.get(position).type(typeFactory);
   }
 
   @Override
-  public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-    if (viewType == 1) {
-      View inflate =
-          LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_error, parent, false);
-      return new ProgressViewHolder(inflate);
-    }
+  public VisitableViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     View inflate =
-        LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item_news, parent, false);
-    return new NewsItemViewHolder(inflate);
+        LayoutInflater.from(parent.getContext()).inflate(viewType, parent, false);
+    return typeFactory.viewHolder(inflate, viewType);
   }
 
   @Override
-  public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-    ((UpdatableViewHolder)holder).update(stories.get(position));
+  public void onBindViewHolder(VisitableViewHolder holder, int position) {
+    holder.update(stories.get(position));
     if (position == stories.size() - 2) {
       if (subscription != null && !subscription.isUnsubscribed()) {
         // no duplicate requests
@@ -66,7 +63,7 @@ public class HeadlinesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
 
   void onError(Throwable throwable) {
     Log.e(TAG, "onError: "+throwable.getMessage(),throwable);
-    stories.get(stories.size() - 1).title = throwable.getMessage();
+    progressData.title = throwable.getMessage();
     notifyItemChanged(stories.size()-1);
   }
 
@@ -78,7 +75,7 @@ public class HeadlinesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
   void addAll(List<HeadlinesResponse.Story> items) {
     int size = stories.size();
     stories.addAll(size-1, items);
-    stories.get(stories.size() - 1).title = null;
+    progressData.title = null;
     notifyItemRangeChanged(size, items.size());
   }
 
@@ -88,8 +85,4 @@ public class HeadlinesAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
     }
   }
 
-
-  interface UpdatableViewHolder {
-    void update(HeadlinesResponse.Story story);
-  }
 }

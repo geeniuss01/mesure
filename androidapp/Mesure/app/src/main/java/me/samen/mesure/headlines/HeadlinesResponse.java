@@ -48,7 +48,7 @@ public class HeadlinesResponse {
     public String userFeedLogic;
   }
 
-  public static class Story {
+  public static class Story implements Visitable {
     public String type;
     public String id;
     public String title;
@@ -77,6 +77,11 @@ public class HeadlinesResponse {
     public String morecontentloadurl;
     public String backgroundcolor;
     public Experiment experiment;
+
+    @Override
+    public int type(TypeFactory typeFactory) {
+      return typeFactory.type(this);
+    }
   }
 
   public static class Data {
