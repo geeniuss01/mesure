@@ -13,13 +13,14 @@ import me.samen.mesure.di.DaggerAppComponent;
  * @author satosh.dhanyamraju
  */
 public class MesureApp extends Application{
-
+  public static final String BASE_URL_SO = "https://api.stackexchange.com/";
+  public static final String BASE_URL_DH = "http://api-news.dailyhunt.in/";
   public AppComponent appComponent;
 
   @Override
   public void onCreate() {
     super.onCreate();
-    appComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+    appComponent = DaggerAppComponent.builder().appModule(new AppModule(this, BASE_URL_DH)).build();
   }
 
 }

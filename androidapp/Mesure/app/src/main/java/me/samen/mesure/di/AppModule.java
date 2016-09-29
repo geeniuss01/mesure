@@ -5,10 +5,13 @@ package me.samen.mesure.di;
 
 import android.content.Context;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava.RxJavaCallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -18,20 +21,34 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 @Module
 public class AppModule {
-  Context appContext;
+  private String baseUrl;
 
-  public AppModule(Context appContext) {
-    this.appContext = appContext;
+  public AppModule(Context appContext, String baseUrl) {
+    this.baseUrl = baseUrl;
   }
 
 
   @Provides
   @Singleton
   Retrofit retrofit() {
-    return new Retrofit.Builder().baseUrl("https://api.stackexchange.com/")
+    HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
+    loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+    OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+    httpClient.addInterceptor(loggingInterceptor);
+
+    return new Retrofit.Builder().baseUrl(baseUrl)
         .addConverterFactory(GsonConverterFactory.create())
         .addCallAdapterFactory(RxJavaCallAdapterFactory.create())
+        .client(httpClient.build())
         .build();
 
   }
+
+  @Provides
+  @Singleton
+  @Named("BASE_URL")
+  String baseUrl() {
+    return baseUrl;
+  }
 }
+

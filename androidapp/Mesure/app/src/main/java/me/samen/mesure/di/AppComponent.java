@@ -3,6 +3,7 @@
  */
 package me.samen.mesure.di;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Component;
@@ -15,4 +16,7 @@ import retrofit2.Retrofit;
 @Component(modules = {AppModule.class})
 public interface AppComponent {
   Retrofit retrofit();
+
+  @Named("BASE_URL")
+  String baseUrl();
 }

@@ -1,8 +1,8 @@
 package me.samen.mesure.sample;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,6 +15,7 @@ import butterknife.OnClick;
 import me.samen.mesure.MesureApp;
 import me.samen.mesure.R;
 import me.samen.mesure.di.AppComponent;
+import me.samen.mesure.headlines.HeadlinesActivity;
 import me.samen.mesure.sample.di.DaggerStackComponent;
 import me.samen.mesure.sample.di.StackModule;
 import rx.Subscription;
@@ -25,8 +26,6 @@ import rx.subscriptions.CompositeSubscription;
 public class MainActivity extends AppCompatActivity {
   private static final String LOG_TAG = "MainActivity";
   private static final String TAG = "MainActivity";
-  @BindView(R.id.tagsRV)
-  RecyclerView tagsRecyclerview;
   @BindView(R.id.text1)
   TextView textView1;
   @Inject
@@ -37,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+    startActivity(new Intent(this, HeadlinesActivity.class));
+    finish();
     setContentView(R.layout.activity_main);
     ButterKnife.bind(this);
     AppComponent appComponent = ((MesureApp) getApplication()).appComponent;
