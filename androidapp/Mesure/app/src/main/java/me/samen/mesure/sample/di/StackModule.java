@@ -5,7 +5,7 @@ package me.samen.mesure.sample.di;
 
 import dagger.Module;
 import dagger.Provides;
-import me.samen.mesure.di.PerActivity;
+import me.samen.mesure.common.di.PerActivity;
 import me.samen.mesure.sample.SamplePresenter;
 import me.samen.mesure.sample.StackexchangeApi;
 import retrofit2.Retrofit;

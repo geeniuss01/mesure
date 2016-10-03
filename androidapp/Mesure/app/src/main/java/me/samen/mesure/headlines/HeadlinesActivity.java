@@ -29,6 +29,7 @@ public class HeadlinesActivity extends AppCompatActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
+
     setContentView(R.layout.activity_headlines);
     headlinesComponent = DaggerHeadlinesComponent.builder()
         .appComponent(((MesureApp) getApplication()).appComponent)

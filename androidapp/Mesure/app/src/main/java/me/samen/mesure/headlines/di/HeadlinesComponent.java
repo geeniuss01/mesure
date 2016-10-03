@@ -4,8 +4,8 @@
 package me.samen.mesure.headlines.di;
 
 import dagger.Component;
-import me.samen.mesure.di.AppComponent;
-import me.samen.mesure.di.PerActivity;
+import me.samen.mesure.common.di.AppComponent;
+import me.samen.mesure.common.di.PerActivity;
 import me.samen.mesure.headlines.HeadlinesActivity;
 
 /**
