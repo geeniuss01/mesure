@@ -15,7 +15,7 @@ import me.samen.mesure.sample.StackexchangeApi;
  */
 @PerActivity
 @Component(modules = {StackModule.class}, dependencies = {AppComponent.class})
-interface StackComponent {
+public interface StackComponent {
   StackexchangeApi api();
 
   SamplePresenter presenter();

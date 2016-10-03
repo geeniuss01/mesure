@@ -5,6 +5,9 @@ package me.samen.mesure.headlines;
 
 import android.util.Log;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
@@ -24,6 +27,11 @@ public class HeadlinesPresenter {
   }
 
   Observable<List<HeadlinesResponse.Story>> firstPage() {
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference users = database.getReference("users");
+    users.child("test1").setValue("activity1");
+    users.push();
+    
     return api.headlines().map(r -> {
       Log.i(TAG, "firstPage: url="+r.data.nextPageUrl +" pg="+r.data.pageNumber);
       nextPgUrl = r.data.nextPageUrl;
