@@ -8,7 +8,7 @@ import com.squareup.picasso.Picasso;
 import me.samen.mesure.R;
 import me.samen.mesure.databinding.ListItemNewsBinding;
 
-class NewsItemViewHolder extends VisitableViewHolder<HeadlinesResponse.Story>{
+class NewsItemViewHolder extends VisitableViewHolder<HeadlinesResponse.Story> {
     private ListItemNewsBinding binding;
 
     NewsItemViewHolder(View itemView) {

@@ -5,9 +5,9 @@ package me.samen.mesure;
 
 import android.app.Application;
 
-import me.samen.mesure.di.AppComponent;
-import me.samen.mesure.di.AppModule;
-import me.samen.mesure.di.DaggerAppComponent;
+import me.samen.mesure.common.di.AppComponent;
+import me.samen.mesure.common.di.AppModule;
+import me.samen.mesure.common.di.DaggerAppComponent;
 
 /**
  * @author satosh.dhanyamraju

@@ -14,7 +14,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import me.samen.mesure.MesureApp;
 import me.samen.mesure.R;
-import me.samen.mesure.di.AppComponent;
+import me.samen.mesure.common.di.AppComponent;
 import me.samen.mesure.headlines.HeadlinesActivity;
 import me.samen.mesure.sample.di.DaggerStackComponent;
 import me.samen.mesure.sample.di.StackModule;

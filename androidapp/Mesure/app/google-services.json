@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1070525497421",
+    "firebase_url": "https://mesure-4abfc.firebaseio.com",
+    "project_id": "mesure-4abfc",
+    "storage_bucket": "mesure-4abfc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1070525497421:android:ecf3f08122dfa5c7",
+        "android_client_info": {
+          "package_name": "me.samen.mesure"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1070525497421-n101uu0b2opkkrfm16sckllnombfed34.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "me.samen.mesure",
+            "certificate_hash": "B9D26AEFAEB19B4A8E9B118B66989388597FCCD8"
+          }
+        },
+        {
+          "client_id": "1070525497421-ff76qeqnec4kqvalkqvmt6tvu4bjr752.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCwtZ01h5XRsxMrlKvIP2gtecOrGNxOUBo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1070525497421-ff76qeqnec4kqvalkqvmt6tvu4bjr752.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

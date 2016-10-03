@@ -4,8 +4,8 @@
 package me.samen.mesure.sample.di;
 
 import dagger.Component;
-import me.samen.mesure.di.AppComponent;
-import me.samen.mesure.di.PerActivity;
+import me.samen.mesure.common.di.AppComponent;
+import me.samen.mesure.common.di.PerActivity;
 import me.samen.mesure.sample.MainActivity;
 import me.samen.mesure.sample.SamplePresenter;
 import me.samen.mesure.sample.StackexchangeApi;
@@ -15,7 +15,7 @@ import me.samen.mesure.sample.StackexchangeApi;
  */
 @PerActivity
 @Component(modules = {StackModule.class}, dependencies = {AppComponent.class})
-public interface StackComponent {
+interface StackComponent {
   StackexchangeApi api();
 
   SamplePresenter presenter();

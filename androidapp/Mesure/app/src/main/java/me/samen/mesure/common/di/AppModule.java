@@ -1,7 +1,7 @@
 /*
  * Copyright (c) 2016 Newshunt. All rights reserved.
  */
-package me.samen.mesure.di;
+package me.samen.mesure.common.di;
 
 import android.content.Context;
 
